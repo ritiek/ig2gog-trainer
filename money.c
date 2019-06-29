@@ -1,11 +1,22 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <windows.h>
 #include <unistd.h>
 
+/* 32-bit and 64-bit check to keep MEM size same as LPVOID. */
+#ifdef _WIN64
+    // 64-bit Windows
+    #define MEM uint64_t
+#else
+    // 32-bit Windows
+    #define MEM uint32_t
+#endif
+
+
 int main() {
-    DWORD baseaddress = 0x11D0000;
-    DWORD solarian_offset = 0x7AD170;
-    DWORD result = baseaddress + solarian_offset;
+    MEM baseaddress = 0x11D0000;
+    MEM solarian_offset = 0x7AD170;
+    MEM result = baseaddress + solarian_offset;
     LPVOID address = (LPVOID)result;
     printf("%p\n", address);
 
