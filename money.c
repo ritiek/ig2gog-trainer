@@ -45,8 +45,7 @@ int main() {
         // Since the game runs in 32-bit mode even on 64-bit Windows, there is no need to check in 64-bit modules
         // if (EnumProcessModulesEx(hProc, &hMod, sizeof(hMod), &cbNeeded, LIST_MODULES_32BIT | LIST_MODULES_64BIT)) {
         if (EnumProcessModulesEx(hProc, &hMod, sizeof(hMod), &cbNeeded, LIST_MODULES_32BIT)) {
-            	GetModuleBaseName(hProc, hMod, szProcessName,
-                sizeof(szProcessName) / sizeof(TCHAR));
+            	GetModuleBaseName(hProc, hMod, szProcessName, sizeof(szProcessName) / sizeof(TCHAR));
                 MEM baseaddress = (MEM)hMod;
                 printf("BASE: %p\n", baseaddress);
                 MEM result = baseaddress + myrace;
