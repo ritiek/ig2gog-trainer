@@ -4,58 +4,86 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Solarian"</Description>
-      <LastState Value="104170" RealAddress="0089D170"/>
+      <LastState Value="100000" RealAddress="0090D170"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD170</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>9</ID>
       <Description>"Antari"</Description>
-      <LastState Value="59736.0040426254" RealAddress="0089D178"/>
+      <LastState Value="100000" RealAddress="0090D178"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD178</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>1</ID>
       <Description>"Shinari"</Description>
-      <LastState Value="66612.0043158531" RealAddress="0089D180"/>
+      <LastState Value="100000" RealAddress="0090D180"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD180</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>10</ID>
       <Description>"Iberon"</Description>
-      <LastState Value="31834.0044438839" RealAddress="0089D188"/>
+      <LastState Value="100000" RealAddress="0090D188"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD188</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>2</ID>
       <Description>"Krahen"</Description>
-      <LastState Value="58648.0046749115" RealAddress="0089D190"/>
+      <LastState Value="100000" RealAddress="0090D190"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD190</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>11</ID>
       <Description>"Godan"</Description>
-      <LastState Value="67372.004544735" RealAddress="0089D198"/>
+      <LastState Value="100000" RealAddress="0090D198"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD198</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>3</ID>
       <Description>"Cheblon"</Description>
-      <LastState Value="112416.006135941" RealAddress="0089D1A0"/>
+      <LastState Value="2314022.73240089" RealAddress="0090D1A0"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD1A0</Address>
     </CheatEntry>
     <CheatEntry>
       <ID>12</ID>
       <Description>"Toluen"</Description>
-      <LastState Value="50260.8036661148" RealAddress="0089D1A8"/>
+      <LastState Value="13.4513960178775" RealAddress="0090D1A8"/>
       <VariableType>Double</VariableType>
       <Address>ig2.exe+7AD1A8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>13</ID>
+      <Description>"Sol 2 Population"</Description>
+      <LastState Value="33260" RealAddress="008EBC38"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>ig2.exe+78BC38</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>14</ID>
+      <Description>"Exterior 6 Population"</Description>
+      <LastState Value="28921" RealAddress="008EBAB0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>008EBAB0</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Selected Planet"</Description>
+      <LastState Value="80" RealAddress="008F933C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>ig2.exe+79933C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Current Race"</Description>
+      <LastState Value="3" RealAddress="00672A3C"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>ig2.exe+512A3C</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
