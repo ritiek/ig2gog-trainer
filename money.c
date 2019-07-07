@@ -4,73 +4,81 @@
 #include <unistd.h>
 #include <psapi.h>
 #include <tchar.h>
+#include "offsets.h"
 
-#define SOLARIAN_OFFSET 0x7AD170
-#define ANTARI_OFFSET 0x7AD178
-#define SHINARI_OFFSET 0x7AD180
-#define IBERON_OFFSET 0x7AD188
-#define KRAHEN_OFFSET 0x7AD190
-#define GODAN_OFFSET 0x7AD198
-#define CHEBLON_OFFSET 0x7AD1A0
-#define TOLUEN_OFFSET 0x7AD1A8
 
-/* 32-bit and 64-bit check to keep MEM size same as LPVOID. */
-#ifdef _WIN64
-    // 64-bit Windows
-    #define MEM uint64_t
-#else
-    // 32-bit Windows
-    #define MEM uint32_t
-#endif
+static HANDLE hProc;
+static MEM BASE_ADDRESS;
+
+
+int freeze_money(int race, double value) {
+    LPVOID address = (LPVOID)(BASE_ADDRESS + MONEY_OFFSETS[race]);
+    while (1) {
+        int stat = WriteProcessMemory(hProc, (LPVOID)address, &value, (DWORD)sizeof(value), NULL);
+
+        if(stat > 0){
+            printf("Memory written to process.\n");
+        } else {
+            printf("Memory couldn't be written to process.\n");
+        }
+
+        sleep(0.1);
+    }
+}
+
+
+int get_current_race() {
+    int race;
+    LPVOID address = (LPVOID)(BASE_ADDRESS + CURRENT_RACE_OFFSET);
+    ReadProcessMemory(hProc, (void*)address, &race, sizeof(race), 0);
+    return race;
+}
+
+
+int change_current_race(int race) {
+    LPVOID address = (LPVOID)(BASE_ADDRESS + CURRENT_RACE_OFFSET);
+    int stat = WriteProcessMemory(hProc, (LPVOID)address, &race, (DWORD)sizeof(race), NULL);
+    return stat;
+}
+
 
 int main() {
     LPVOID address;
-    double money = 10000000;
-    double value = 0;
-    MEM myrace = SOLARIAN_OFFSET;
-    int stat = 1;
+
+    TCHAR szProcessName[MAX_PATH];
+    DWORD PID;
+    HMODULE hMod;
+    DWORD cbNeeded;
 
     HWND hWnd = FindWindowA(0, "Imperium Galactica II");
-    if (hWnd == 0) {
-        printf("Could not find window.\n");
-    } else {
-    	TCHAR szProcessName[MAX_PATH];
-        DWORD PID;
-        GetWindowThreadProcessId(hWnd, &PID);
-        HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, 0, PID);
-
-        HMODULE hMod;
-        DWORD cbNeeded;
-
-        // Since the game runs in 32-bit mode even on 64-bit Windows, there is no need to check in 64-bit modules
-        // if (EnumProcessModulesEx(hProc, &hMod, sizeof(hMod), &cbNeeded, LIST_MODULES_32BIT | LIST_MODULES_64BIT)) {
-        if (EnumProcessModulesEx(hProc, &hMod, sizeof(hMod), &cbNeeded, LIST_MODULES_32BIT)) {
-            	GetModuleBaseName(hProc, hMod, szProcessName, sizeof(szProcessName) / sizeof(TCHAR));
-                MEM baseaddress = (MEM)hMod;
-                printf("BASE: %p\n", baseaddress);
-                MEM result = baseaddress + myrace;
-                address = (LPVOID)result;
-                printf("RESULT: %p\n", address);
-        }
-
-        if(!hProc) {
-            printf("Cannot open process.\n");
-        } else {
-            while (1) {
-                int stat = WriteProcessMemory(hProc, (LPVOID)address, &money, (DWORD)sizeof(money), NULL);
-                // ReadProcessMemory(hProc, (void*)address, &value, sizeof(value), 0);
-
-                if(stat > 0){
-                    printf("Memory written to process.\n");
-                } else {
-                    printf("Memory couldn't be written to process.\n");
-                }
-
-                sleep(0.1);
-            }
-
-            CloseHandle(hProc);
-        }
+    if (!hWnd) {
+        printf("Could not find Imperium Galactica II window.\n");
+        return 1;
     }
+
+    GetWindowThreadProcessId(hWnd, &PID);
+    hProc = OpenProcess(PROCESS_ALL_ACCESS, 1, PID);
+    // Since the game runs in 32-bit mode even on 64-bit Windows,
+    // there is no need to check in 64-bit modules
+    if (EnumProcessModulesEx(hProc, &hMod, sizeof(hMod), &cbNeeded, LIST_MODULES_32BIT)) {
+        GetModuleBaseName(hProc, hMod, szProcessName, sizeof(szProcessName) / sizeof(TCHAR));
+        BASE_ADDRESS = (MEM)hMod;
+    }
+
+    if (!hProc) {
+        printf("Cannot open process.\n");
+        return 1;
+    }
+
+    printf("BASE_ADDRESS: %p\n", BASE_ADDRESS);
+
+    int race = get_current_race();
+    printf("%d\n", race);
+
+    change_current_race(1);
+
+    // freeze_money(GAIA, 100);
+
+    CloseHandle(hProc);
     return 0;
 }

@@ -12,7 +12,7 @@ There haven't been any new version releases of the game since 2017 and if I were
 - [ ] Increase planet population
 - [ ] Fleet teleportation
 - [ ] Instant research
-- [ ] Change race in-game (I dunno if something like this would be possible but it would be very interesting!)
+- [x] Change race in-game
 
 ## Usage
 
